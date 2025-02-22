@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8d3e0;
@@ -45,27 +46,26 @@ h1 {
     align-items: center;
     text-align: center;
     border: 5px solid #ff0080;
-    padding: 20px; /* Adjust padding as needed */
+    padding: 100px 50px;
     background-color: white;
     gap: 15px;
     width: 90%;
     max-width: 300px;
-    height: auto; /* You can set a fixed height if needed */
+    height: auto;
     overflow: hidden;
 }
 
 .photo {
-    width: 100%; /* Set width to 100% of the parent */
-    height: 100%; /* Set height to 100% of the parent */
-    max-width: 300px; /* Optional: Set a max width */
-    max-height: 300px; /* Optional: Set a max height */
-    object-fit: cover; /* Cover the area while maintaining aspect ratio */
+    max-width: 100%; /* Allow the image to scale down */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the image fits within the container */
     border: 3px solid #ff6f91;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     z-index: 3;
     position: relative;
 }
+
 .save-button {
     margin-top: 10px;
     padding: 8px 16px;
@@ -117,41 +117,35 @@ h1 {
     border-radius: 5px;
     z-index: 3;
 }
-
 @media (max-width: 768px) {
     .photo-strip {
-        width: 95%;
-        padding: 50px 25px;
+        width: 300px;
+        padding: 100px 50px;
     }
 
     .photo {
-        max-width: 100%; /
-        height: auto;
-        object-fit: contain;
-        display: block;
-        margin: 0 auto; 
+        width: 250px;
     }
 
     .photo-strip-title {
-        font-size: 15px;
-        padding: 0px;
+        font-size: 18px;
     }
 
     .save-button {
-        padding: 6px 12px;
+        width: 250px;
         font-size: 14px;
     }
 
-    .ascii-art-top-left {
-        font-size: 2px;
-    }
 
-    .ascii-art {
-        font-size: 4px; 
-    }
+
+.ascii-art-top-left {
+    font-size: 3px;
 }
 
-
+.ascii-art {
+    font-size: 5px;
+}
+}
     </style>
 </head>
 <head>
@@ -162,7 +156,7 @@ h1 {
 
 <body>
     <div class="photostripcontainer">
-        <img src="images/icegif-48.gif" alt="Cinnamoroll GIF" class="left-gif">
+
  
     <div class="photo-strip" id="photoStrip">
         <h1 class="photo-strip-title">Photostrip</h1>
@@ -221,56 +215,57 @@ h1 {
 
     <script>
         function loadFilteredImages() {
-            const filteredImages = JSON.parse(sessionStorage.getItem("filteredImages"));
-            const photoStrip = document.getElementById('photoStrip');
+    const filteredImages = JSON.parse(sessionStorage.getItem("filteredImages"));
+    const photoStrip = document.getElementById('photoStrip');
 
-            if (filteredImages && filteredImages.length > 0) {
-                let imagesLoaded = 0;
-                filteredImages.forEach(imageData => {
-                    const img = new Image();
-                    img.src = imageData;
-                    img.classList.add('photo');
-                    img.onload = () => {
-                        imagesLoaded++;
-                        if (imagesLoaded === filteredImages.length) {
-                            console.log("All images loaded");
-                        }
-                    };
-                    img.onerror = () => {
-                        console.error("Error loading image: ", imageData);
-                    };
-                    photoStrip.appendChild(img);
-                });
-            } else {
-                const message = document.createElement('p');
-                message.textContent = "No images found.";
-                photoStrip.appendChild(message);
-            }
-        }
+    if (filteredImages && filteredImages.length > 0) {
+        let imagesLoaded = 0;
+        filteredImages.forEach(imageData => {
+            const img = new Image();
+            img.src = imageData;
+            img.classList.add('photo');
+            img.onload = () => {
+                imagesLoaded++;
+                photoStrip.appendChild(img); // Append image after it is loaded
+                if (imagesLoaded === filteredImages.length) {
+                    console.log("All images loaded");
+                }
+            };
+            img.onerror = () => {
+                console.error("Error loading image: ", imageData);
+            };
+        });
+    } else {
+        const message = document.createElement('p');
+        message.textContent = "No images found.";
+        photoStrip.appendChild(message);
+    }
+}
 
-        function saveImage() {
-            const photoStrip = document.getElementById("photoStrip");
+function saveImage() {
+    const photoStrip = document.getElementById("photoStrip");
 
-           
-            setTimeout(() => {
-                html2canvas(photoStrip, {
-                    useCORS: true, 
-                    scale: 2 
-                }).then(canvas => {
-                    canvas.toBlob(blob => {
-                        const link = document.createElement('a');
-                        link.href = URL.createObjectURL(blob);
-                        link.download = 'photo_strip.png';
-                        document.body.appendChild(link); 
-                        link.click();
-                        document.body.removeChild(link); 
-                        URL.revokeObjectURL(link.href);
-                    }, "image/png");
-                }).catch(err => {
-                    console.error("Error capturing the image: ", err);
-                });
-            }, 500);
-        }
+    setTimeout(() => {
+        html2canvas(photoStrip, {
+            useCORS: true,
+            scale: 2, // Adjust scale for better quality
+            width: photoStrip.offsetWidth, // Set width to the container's width
+            height: photoStrip.offsetHeight // Set height to the container's height
+        }).then(canvas => {
+            canvas.toBlob(blob => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'photo_strip.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+            }, "image/png");
+        }).catch(err => {
+            console.error("Error capturing the image: ", err);
+        });
+    }, 500);
+}
 
         document.addEventListener('DOMContentLoaded', loadFilteredImages);
     </script>
