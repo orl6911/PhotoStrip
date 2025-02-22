@@ -383,7 +383,7 @@ video {
                 <div class="photo-container">
                     <div id="photobooth" class="camera-container">
                         <h1>Photobooth</h1>
-                        <div class="timer-text">You have 8 seconds to take a picture.</div>
+                        <div class="timer-text">You have 4 seconds to take 3 picture.</div>
 <div class="camera-container">
                         <video id="video" autoplay></video>
                         <button id="start">Start Timer</button>
@@ -520,7 +520,7 @@ startButton.addEventListener('click', () => {
 
     function takeNextPhoto() {
         if (count < totalPhotos) {
-            let countdown = 1;
+            let countdown = 4;
             timerDisplay.textContent = `Taking photo in ${countdown}...`;
 
             const countdownInterval = setInterval(() => {
