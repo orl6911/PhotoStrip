@@ -86,9 +86,10 @@ canvas {
 }
 
 video {
-    border: 5px solid #ff6f91; 
+    border: 5px solid #ff6f91;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: none;
 }
 
 .photo {
@@ -290,10 +291,10 @@ video {
     }
 
     .container {
-        width: 90%;
+  width: 90%;
   max-width: 600px;
   margin: auto;
-    }
+}
 
     .photo-container {
         padding: 15px; 
@@ -304,9 +305,10 @@ video {
         max-width: 100%;
     }
 
-    video {
-        width: 100%;
-        max-width: 100%; 
+   video {
+        transform: rotate(90deg); /* Force landscape mode */
+        width: auto;
+        height: 100vh;
     }
 
     .photo {
@@ -330,6 +332,7 @@ video {
 
 #camera {
     width: 100%;
+    max-width: 400px;
   }
 
     #capturedPhotosContainer {
@@ -382,7 +385,7 @@ video {
                 <div class="photo-container">
                     <div id="photobooth" class="camera-container">
                         <h1>Photobooth</h1>
-                        <div class="timer-text">You have 5 seconds to take a picture.</div>
+                        <div class="timer-text">You have 8 seconds to take a picture.</div>
 <div class="camera-container">
                         <video id="video" autoplay></video>
                         <button id="start">Start Timer</button>
@@ -519,7 +522,7 @@ startButton.addEventListener('click', () => {
 
     function takeNextPhoto() {
         if (count < totalPhotos) {
-            let countdown = 5;
+            let countdown = 1;
             timerDisplay.textContent = `Taking photo in ${countdown}...`;
 
             const countdownInterval = setInterval(() => {
