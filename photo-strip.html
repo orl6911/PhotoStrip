@@ -8,73 +8,79 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
          body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f8d3e0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            color: #40343f;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        .photo-strip-title {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8d3e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    color: #40343f;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.photo-strip-title {
     font-family: "Sigmar", serif;
-    font-size: 28px;
+    font-size: 24px;
     text-align: center;
     color: #ff6f91;
     position: absolute;
-    top: 10px; 
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
-    padding: 5px 15px;
+    padding: 5px 10px;
     border-radius: 8px;
-    z-index: 3; 
+    z-index: 3;
 }
 
-        
-        .photo-strip {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            border: 5px solid #ff0080;
-            padding: 100px 50px;
-            background-color: white;
-            gap: 15px;
-            width: 300px;
-            height: 500px;
-            overflow: hidden;
-        }
-        .photo {
-            width: 200px;
-            height: 300px;
-            border: 3px solid #ff6f91;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 3; 
-            position: relative; 
-        }
+.photo-strip {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 5px solid #ff0080;
+    padding: 100px 50px;
+    background-color: white;
+    gap: 15px;
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+    overflow: hidden;
+}
 
-        .save-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #ff6f91;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .save-button:hover {
-            background-color: #ff4f7d;
-        }
-        .ascii-art-top-left {
+.photo {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border: 3px solid #ff6f91;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+    position: relative;
+}
+
+.save-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #ff6f91;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-button:hover {
+    background-color: #ff4f7d;
+}
+
+.ascii-art-top-left {
     position: absolute;
     top: 20px;
     left: -30px;
@@ -85,24 +91,25 @@
     z-index: 3;
 }
 
-        .ascii-art {
-            position: absolute;
-            bottom: 0;
-            right: 10px;
-            transform: translate(30%, 30%);
-            font-family: monospace;
-            white-space: pre;
-            color: #ff009d;
-            font-size: 8px;
-            z-index: 0; 
-            pointer-events: none; 
-        }
-        .photo-credit {
+.ascii-art {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    transform: translate(30%, 30%);
+    font-family: monospace;
+    white-space: pre;
+    color: #ff009d;
+    font-size: 6px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.photo-credit {
     position: absolute;
     bottom: 10px;
     left: 10px;
     font-family: "Sigmar", serif;
-    font-size: 14px;
+    font-size: 12px;
     color: #ff6f91;
     background-color: white;
     padding: 3px 8px;
@@ -110,16 +117,39 @@
     z-index: 3;
 }
 
+
+
+
 @media (max-width: 768px) {
-    .cinnamon-roll {
-        display: none;
-        width: 100%;
-        height: auto;
-        margin-left: 0; 
-    }
+  
+
+    .photo-strip {
+        width: 95%;
+        padding: 50px 25px;
     }
 
+    .photo {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
 
+    .photo-strip-title {
+        font-size: 15px;
+        padding: 0px;
+    }
+
+    .save-button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+.ascii-art-top-left {
+    font-size: 2px;
+    }
+    .ascii-art {
+        font-size: 4px;
+    }
     </style>
 </head>
 <head>
