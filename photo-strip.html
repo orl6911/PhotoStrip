@@ -7,23 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8d3e0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    color: #40343f;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-.photo-strip-title {
+         body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8d3e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #40343f;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .photo-strip-title {
     font-family: "Sigmar", serif;
     font-size: 28px;
     text-align: center;
@@ -38,47 +36,45 @@ h1 {
     z-index: 3; 
 }
 
-.photo-strip {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 5px solid #ff0080;
-    padding: 100px 50px;
-    background-color: white;
-    gap: 15px;
-    width: 300px;
-    height: 500px;
-    overflow: hidden;
-}
+        
+        .photo-strip {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 5px solid #ff0080;
+            padding: 100px 50px;
+            background-color: white;
+            gap: 15px;
+            width: 300px;
+            height: 500px;
+            overflow: hidden;
+        }
+        .photo {
+            width: 200px;
+            height: 300px;
+            border: 3px solid #ff6f91;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 3; 
+            position: relative; 
+        }
 
-.photo {
-    width: 200px;
-    height: 200px;
-    border: 3px solid #ff6f91;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 3; 
-    position: relative; 
-}
-
-.save-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #ff6f91;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.save-button:hover {
-    background-color: #ff4f7d;
-}
-
-.ascii-art-top-left {
+        .save-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff6f91;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .save-button:hover {
+            background-color: #ff4f7d;
+        }
+        .ascii-art-top-left {
     position: absolute;
     top: 20px;
     left: -30px;
@@ -89,20 +85,19 @@ h1 {
     z-index: 3;
 }
 
-.ascii-art {
-    position: absolute;
-    bottom: 0;
-    right: 10px;
-    transform: translate(30%, 30%);
-    font-family: monospace;
-    white-space: pre;
-    color: #ff009d;
-    font-size: 8px;
-    z-index: 0; 
-    pointer-events: none; 
-}
-
-.photo-credit {
+        .ascii-art {
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+            transform: translate(30%, 30%);
+            font-family: monospace;
+            white-space: pre;
+            color: #ff009d;
+            font-size: 8px;
+            z-index: 0; 
+            pointer-events: none; 
+        }
+        .photo-credit {
     position: absolute;
     bottom: 10px;
     left: 10px;
@@ -115,60 +110,16 @@ h1 {
     z-index: 3;
 }
 
-.left-gif {
-    position: absolute;
-    left: 20%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px; 
-    height: 800px;
-}
-
-/* Mobile-friendly styles */
-@media (max-width: 600px) {
-    body {
-        height: auto; 
-        padding: 20px;
-    }
-
-    .photo-strip {
-        padding: 50px 20px; 
-        width: 90%; 
-        height: auto;
-    }
-
-    .photo {
+@media (max-width: 768px) {
+    .cinnamon-roll {
+        display: none;
         width: 100%;
         height: auto;
+        margin-left: 0; 
+    }
     }
 
-    .photo-strip-title {
-        font-size: 24px; 
-    }
 
-    .save-button {
-        padding: 8px 16px;
-    }
-
-    .ascii-art-top-left {
-        font-size: 2px; 
-    }
-
-    .ascii-art {
-        font-size: 6px; 
-    }
-
-    .photo-credit {
-        font-size: 12px; 
-    }
-
-    .left-gif {
-        width: 100%;
-        height: auto; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-    }
-}
     </style>
 </head>
 <head>
