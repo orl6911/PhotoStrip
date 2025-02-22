@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-  
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8d3e0;
@@ -125,9 +124,9 @@ h1 {
     }
 
     .photo {
-        width: 150px;
-        height: 150px;
-        object-fit: contain; /* Maintain aspect ratio without stretching */
+        max-width: 100%; /* Allow the image to scale down */
+        height: auto; /* Maintain aspect ratio */
+        object-fit: contain; /* Ensure the image fits within the container */
     }
 
     .photo-strip-title {
@@ -139,14 +138,16 @@ h1 {
         padding: 6px 12px;
         font-size: 14px;
     }
-}
+
+
 
 .ascii-art-top-left {
-    font-size: 2px;
+    font-size: 3px;
 }
 
 .ascii-art {
-    font-size: 4px;
+    font-size: 5px;
+}
 }
 
     </style>
