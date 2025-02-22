@@ -19,12 +19,14 @@
     margin: 0;
     color: #343a40;
 }
+
 .captured-photos-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
 }
+
 .wrapper {
     display: flex;
     align-items: center; 
@@ -41,11 +43,11 @@
     margin-top: 20px;
 }
 
-
 .container {
     flex: 1;
     max-width: 600px; 
 }
+
 .photo-container {
     background-color: #ffffff;
     border-radius: 15px;
@@ -59,9 +61,6 @@
     position: relative;
     border: 5px solid #ffb6c1;
 }
-
-
-
 
 .container:hover {
     transform: scale(1.02);
@@ -83,6 +82,7 @@ canvas {
     height: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 video {
     border: 5px solid #ff6f91; 
     border-radius: 15px;
@@ -136,20 +136,15 @@ video {
     color: white;
     font-size: 16px;
 }
-@media (min-width: 768px) {
-            .main-container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-        }
+
 .filter-button:hover {
     background-color: #ff4f7d;
     transform: translateY(-2px);
 }
+
 .hidden {
     display: none;
 }
-
 
 #capturedPhotosContainer {
     width: 90%; 
@@ -194,20 +189,18 @@ video {
     margin-top: 20px;
 }
 
-
 .cinnamon-roll {
     width: 500px;
     height: 500px;
     margin-left: 100px; 
 }
 
-
-
 @keyframes floatAnimation {
     0% { transform: translateY(0); }
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0); }
 }
+
 #filterLayout {
     display: flex;
     justify-content: space-between;
@@ -228,9 +221,6 @@ video {
     text-align: center;
 }
 
-
-
-
 #filteredImageContainer {
     background-color: #ffffff;
     padding: 20px;
@@ -241,7 +231,6 @@ video {
     text-align: center; 
 }
 
-
 #filteredImage {
     max-width: 100%;
     height: auto;
@@ -249,6 +238,7 @@ video {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 .filter-group {
     display: flex;
     align-items: center;
@@ -260,7 +250,6 @@ video {
     border-radius: 8px;
 }
 
-
 .filter-group label {
     font-weight: bold;
     color: #444;
@@ -269,25 +258,107 @@ video {
     min-width: 100px; 
 }
 
-
 .slider {
     flex: 1;
     width: 100%;
     margin-left: 10px;
 }
 
-
 .filter-group span {
     flex: 0.2; 
     text-align: right;
     min-width: 50px;
 }
-@media (min-width: 768px) {
-            .main-container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-        }
+
+
+@media (max-width: 600px) {
+    body {
+        height: auto; 
+        padding: 20px;
+    }
+
+    .main-container {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0; 
+    }
+
+    .photo-container {
+        padding: 15px; 
+    }
+
+    canvas {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    video {
+        width: 100%;
+        max-width: 100%; 
+    }
+
+    .photo {
+        width: 100%;
+        max-width: 150px; 
+    }
+
+    #timer {
+        font-size: 20px; 
+    }
+
+    #start {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .filter-button {
+        padding: 10px 15px; 
+        font-size: 14px;
+    }
+
+    #capturedPhotosContainer {
+        width: 100%; 
+        padding: 10px; 
+    }
+
+    .cinnamon-roll {
+        width: 100%;
+        height: auto;
+        margin-left: 0; 
+    }
+
+    #filterLayout {
+        flex-direction: column; 
+        gap: 20px;
+    }
+
+    #filterContainer {
+        width: 100%; 
+        padding: 20px; 
+    }
+
+    #filteredImageContainer {
+        width: 100%; 
+        padding: 10px; 
+    }
+
+    .filter-group {
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
+
+    .filter-group label {
+        min-width: auto; 
+    }
+
+    .slider {
+        margin-left: 0; 
+    }
+}
     </style>
 </head>
 
