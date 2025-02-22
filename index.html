@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photobooth with Filters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet">
+    <style>
+       body {
+    font-family: "Sigmar", serif;
+    background-color: #f8d3e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    color: #343a40;
+}
+.captured-photos-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+.wrapper {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap: 30px;
+}
+
+.main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+
+.container {
+    flex: 1;
+    max-width: 600px; 
+}
+.photo-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    border: 5px solid #ffb6c1;
+}
+
+
+
+
+.container:hover {
+    transform: scale(1.02);
+}
+
+.camera-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+canvas {
+    border: 5px solid #ff6f91;
+    display: block;
+    margin: 10px;
+    border-radius: 10px;
+    width: 500px;
+    height: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+video {
+    border: 5px solid #ff6f91; 
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.photo {
+    width: 180px;
+    height: auto;
+    border: 3px solid #ff6f91;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.photo:hover {
+    transform: scale(1.1);
+}
+
+#timer {
+    font-size: 24px;
+    text-align: center;
+    margin: 20px;
+    color: #ff6f91;
+}
+
+#start {
+    background-color: #ff6f91;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#start:hover {
+    background-color: #ff4f7d;
+    transform: translateY(-2px);
+}
+
+.filter-button {
+    margin: 15px 5px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    background-color: #ff6f91;
+    color: white;
+    font-size: 16px;
+}
+@media (min-width: 768px) {
+            .main-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+.filter-button:hover {
+    background-color: #ff4f7d;
+    transform: translateY(-2px);
+}
+.hidden {
+    display: none;
+}
+
+
+#capturedPhotosContainer {
+    width: 90%; 
+    max-width: 1200px; 
+    margin: 30px auto; 
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    order: 2;
+}
+
+.slider-label {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.filtered-image-background {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-image: url('images/1.png');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+.filtered-image-strip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+
+.cinnamon-roll {
+    width: 500px;
+    height: 500px;
+    margin-left: 100px; 
+}
+
+
+
+@keyframes floatAnimation {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+#filterLayout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+    max-width: 1300px;
+    margin: auto;
+    padding: 20px;
+    gap: 80px; 
+}
+
+#filterContainer {
+    width: 450px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+
+
+
+#filteredImageContainer {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    width: 60%; 
+    max-width: 800px; 
+    text-align: center; 
+}
+
+
+#filteredImage {
+    max-width: 100%;
+    height: auto;
+    border: 5px solid #ff6f91;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.filter-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 8px 0;
+    padding: 8px;
+    background: #f8f8f8;
+    border-radius: 8px;
+}
+
+
+.filter-group label {
+    font-weight: bold;
+    color: #444;
+    flex: 0.4; 
+    text-align: left;
+    min-width: 100px; 
+}
+
+
+.slider {
+    flex: 1;
+    width: 100%;
+    margin-left: 10px;
+}
+
+
+.filter-group span {
+    flex: 0.2; 
+    text-align: right;
+    min-width: 50px;
+}
+@media (min-width: 768px) {
+            .main-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="main-container">
+            <div class="container">
+                <div class="photo-container">
+                    <div id="photobooth" class="camera-container">
+                        <h1>Photobooth</h1>
+                        <div class="timer-text">You have 8 seconds to take a picture.</div>
+<div class="camera-container">
+                        <video id="video" autoplay></video>
+                        <button id="start">Start Timer</button>
+                        <div id="timer"></div>
+                        <canvas id="canvas" style="display:none;"></canvas> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="filterContainer">
+            <h1>Apply Filters</h1>
+            <div>
+                <div class="slider-label">
+                    <span>Grayscale: <span id="grayscaleValue">0%</span></span>
+                    <input type="range" class="slider" id="grayscaleSlider" min="0" max="100" value="0" oninput="updateFilter('grayscale', this.value)">
+                </div>
+                <div class="slider-label">
+                    <span>Sepia: <span id="sepiaValue">0%</span></span>
+                    <input type="range" class="slider" id="sepiaSlider" min="0" max="100" value="0" oninput="updateFilter('sepia', this.value)">
+                </div>
+                <div class="slider-label">
+                    <span>Invert: <span id="invertValue">0%</span></span>
+                    <input type="range" class="slider" id="invertSlider" min="0" max="100" value="0" oninput="updateFilter('invert', this.value)">
+                </div>
+                <div class="slider-label">
+                    <span>Blur: <span id="blurValue">0px</span></span>
+                    <input type="range" class="slider" id="blurSlider" min="0" max="20" value="0" oninput="updateFilter('blur', this.value)">
+                </div>
+                <div class="slider-label">
+                    <span>Brightness: <span id="brightnessValue">100%</span></span>
+                    <input type="range" class="slider" id="brightnessSlider" min="0" max="100" value="100" oninput="updateFilter('brightness', this.value)">
+                </div>
+                <div class="slider-label">
+                    <span>Contrast: <span id="contrastValue">100%</span></span>
+                    <input type="range" class="slider" id="contrastSlider" min="0" max="100" value="100" oninput="updateFilter('contrast', this.value)">
+                </div>
+                <div class="slider-label">
+                    <span>Saturate: <span id="saturateValue">100%</span></span>
+                    <input type="range" class="slider" id="saturateSlider" min="0" max="100" value="100" oninput="updateFilter('saturate', this.value)">
+                </div>
+                <div class="slider-label">
+                    <span>Opacity: <span id="opacityValue">100%</span></span>
+                    <input type="range" class="slider" id="opacitySlider" min="0" max="100" value="100" oninput="updateFilter('opacity', this.value)">
+                </div>
+               
+                <button class="filter-button" onclick="saveFilteredImage()">Save Filtered Image</button>
+            </div>
+        </div>
+    </div>
+    <img src="images/0d9dc0e014e173618adcf22fa8f47a9c.gif" alt="Cinamoroll" class="cinnamon-roll">
+</div>
+<div id="capturedPhotosContainer">
+    <h2>Captured Photos</h2>
+    <div class="captured-photos-wrapper"></div>
+</div>
+
+
+    <div id="filteredImageContainer" class="filtered-image-background">
+        <h1>Your Filtered Image</h1>
+        <div class="filtered-image-strip">
+            <img id="filteredImage" src="" alt="Filtered Image">
+        </div>
+        <a id="saveButton" style="display: none;" class="filter-button">Download Image</a>
+
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
+const startButton = document.getElementById('start');
+const timerDisplay = document.getElementById('timer');
+const filtersSection = document.getElementById('filters');
+const capturedPhotosContainer = document.getElementById('capturedPhotosContainer');
+const filteredImageContainer = document.getElementById('filteredImageContainer');
+const filteredImage = document.getElementById('filteredImage');
+const saveButton = document.getElementById('saveButton');
+const retakeButton = document.getElementById("retakeButton");
+
+let capturedPhotos = [];
+let originalPhotos = [];
+
+
+const currentFilters = {
+    grayscale: 0,
+    sepia: 0,
+    invert: 0,
+    blur: 0,
+    brightness: 100,
+    contrast: 100,
+    saturate: 100,
+    opacity: 100
+};
+
+
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+        video.srcObject = stream;
+        video.addEventListener('loadedmetadata', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+        });
+    })
+    .catch(err => {
+        console.error("Error accessing the camera: ", err);
+    });
+
+function takePhoto() {
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imgData = canvas.toDataURL('image/png');
+
+    capturedPhotos.push(imgData);
+    originalPhotos.push(imgData);
+
+    const img = new Image();
+    img.src = imgData;
+    img.classList.add('photo');
+
+    capturedPhotosContainer.appendChild(img);
+}
+
+function hideCameraContainer() {
+    document.querySelector(".container").style.display = "none";
+}
+
+
+startButton.addEventListener('click', () => {
+    let count = 0;
+    const totalPhotos = 3;
+
+    timerDisplay.textContent = '';
+    capturedPhotos = [];
+    originalPhotos = [];
+
+    function takeNextPhoto() {
+        if (count < totalPhotos) {
+            let countdown = 1;
+            timerDisplay.textContent = `Taking photo in ${countdown}...`;
+
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                timerDisplay.textContent = `Taking photo in ${countdown}...`;
+
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    takePhoto();
+                    count++;
+
+                    if (count < totalPhotos) {
+                        setTimeout(takeNextPhoto, 1000);
+                    } else {
+                        timerDisplay.textContent = 'All photos taken!';
+                        showFilters();
+                    }
+                }
+            }, 1000);
+        }
+    }
+
+    takeNextPhoto();
+});
+
+
+function showFilters() {
+    document.getElementById('photobooth').classList.add('hidden');
+    document.getElementById('filterContainer').style.display = 'block';
+    document.querySelector(".container").style.display = "none";
+    document.getElementById("retakeButton").style.display = "block";
+
+    capturedPhotosContainer.innerHTML = '';
+
+    capturedPhotos.forEach(photoData => {
+        const img = new Image();
+        img.src = photoData;
+        img.classList.add('photo');
+        capturedPhotosContainer.appendChild(img);
+    });
+
+    applyAllFilters();
+
+ 
+    retakeButton.style.display = "block";
+}
+
+
+function applyAllFilters() {
+    const photos = capturedPhotosContainer.getElementsByTagName('img');
+    const filterString = generateFilterString();
+
+    for (let i = 0; i < photos.length; i++) {
+        photos[i].style.filter = filterString;
+    }
+}
+
+
+function generateFilterString() {
+    return `
+        grayscale(${currentFilters.grayscale}%)
+        sepia(${currentFilters.sepia}%)
+        invert(${currentFilters.invert}%)
+        blur(${currentFilters.blur}px)
+        brightness(${currentFilters.brightness}%)
+        contrast(${currentFilters.contrast}%)
+        saturate(${currentFilters.saturate}%)
+        opacity(${currentFilters.opacity}%)
+    `;
+}
+
+
+function updateFilter(filter, value) {
+    currentFilters[filter] = value;
+    const labelId = filter + 'Value';
+    document.getElementById(labelId).textContent = filter === 'blur' ? `${value}px` : `${value}%`;
+    applyAllFilters();
+}
+
+
+
+function saveFilteredImage() {
+    if (capturedPhotos.length > 0) {
+        let filteredImages = [];
+
+        capturedPhotos.forEach(photoData => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            const img = new Image();
+
+            img.src = photoData;
+            img.onload = () => {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.filter = generateFilterString();
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                const filteredImageData = canvas.toDataURL("image/png");
+                filteredImages.push(filteredImageData);
+
+                if (filteredImages.length === capturedPhotos.length) {
+                    sessionStorage.setItem("filteredImages", JSON.stringify(filteredImages));
+                    window.location.href = "photo-strip.html";
+                }
+            };
+        });
+    } else {
+        alert("No filtered image available to save.");
+    }
+}
+
+
+saveButton.addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.href = filteredImage.src;
+    link.download = 'filtered_image.png';
+    link.click();
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('filterContainer').style.display = 'none';
+});
+
+
+retakeButton.addEventListener("click", function () {
+    if (capturedPhotosContainer.children.length > 0) {
+        capturedPhotosContainer.removeChild(capturedPhotosContainer.lastChild);
+        capturedPhotos.pop();
+        originalPhotos.pop();
+    }
+
+ 
+    document.getElementById('photobooth').classList.remove('hidden');
+    document.getElementById('filterContainer').style.display = 'none';
+    document.querySelector(".container").style.display = "block";
+
+    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+        video.srcObject = stream;
+    });
+
+    retakeButton.style.display = "none";
+});
+
+    </script>
+</body>
+</html>
