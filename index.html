@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet">
     <style>
-       body {
+      body {
     font-family: "Sigmar", serif;
     background-color: #f8d3e0;
     display: flex;
@@ -44,9 +44,11 @@
 }
 
 .container {
-    flex: 1;
-    max-width: 600px; 
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
 }
+
 
 .photo-container {
     background-color: #ffffff;
@@ -269,22 +271,28 @@ video {
     text-align: right;
     min-width: 50px;
 }
+#camera {
+  width: 100%;
+  max-width: 400px;
+}
 
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     body {
         height: auto; 
         padding: 20px;
     }
 
     .main-container {
-        flex-direction: column; 
-        align-items: center; 
+        flex-direction: column;
+    align-items: center;
+    text-align: center;
     }
 
     .container {
-        max-width: 100%;
-        margin: 0; 
+        width: 90%;
+  max-width: 600px;
+  margin: auto;
     }
 
     .photo-container {
@@ -320,12 +328,17 @@ video {
         font-size: 14px;
     }
 
+#camera {
+    width: 100%;
+  }
+
     #capturedPhotosContainer {
         width: 100%; 
         padding: 10px; 
     }
 
     .cinnamon-roll {
+        display: none;
         width: 100%;
         height: auto;
         margin-left: 0; 
